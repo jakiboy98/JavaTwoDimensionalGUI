@@ -11,12 +11,13 @@ public class TwoDController
 	public TwoDController()
 	{
 		myWatches = new Watch[3][3];
+		setupArray();
 		baseFrame = new TwoDFrame(this);
 	}
 	
 	public void start()
 	{
-		setupArray();
+		
 	}
 	
 	private void setupArray()
