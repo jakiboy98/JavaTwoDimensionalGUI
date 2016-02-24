@@ -4,14 +4,13 @@ import java.awt.Color;
 import javax.swing.*;
 import morning.controller.TwoDController;
 import javax.swing.table.DefaultTableModel;
-public class TwoDPanel
+public class TwoDPanel extends JPanel
 {
 	private TwoDController baseController;
 	private SpringLayout baseLayout;
 	private JTextField rowField;
 	private JTextField columnField;
 	private JLabel currentWatchLabel;
-	private JTextField editField;
 	private JButton changeButton;
 	private JButton displayButton;
 	
@@ -24,16 +23,24 @@ public class TwoDPanel
 		baseLayout = new SpringLayout();
 		
 		rowField = new JTextField(5);
+		baseLayout.putConstraint(SpringLayout.WEST, rowField, 10, SpringLayout.WEST, this);
 		columnField = new JTextField(5);
-		editField = new JTextField(20);
+		baseLayout.putConstraint(SpringLayout.EAST, rowField, 0, SpringLayout.EAST, columnField);
+		baseLayout.putConstraint(SpringLayout.WEST, columnField, 10, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.SOUTH, columnField, -33, SpringLayout.SOUTH, this);
+		baseLayout.putConstraint(SpringLayout.EAST, columnField, 389, SpringLayout.WEST, this);
 		currentWatchLabel = new JLabel("The current Watch");
+		baseLayout.putConstraint(SpringLayout.SOUTH, currentWatchLabel, -250, SpringLayout.SOUTH, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, rowField, 18, SpringLayout.SOUTH, currentWatchLabel);
+		baseLayout.putConstraint(SpringLayout.WEST, currentWatchLabel, 10, SpringLayout.WEST, this);
 		changeButton = new JButton("Change the indicated watch");
+		baseLayout.putConstraint(SpringLayout.SOUTH, changeButton, -2, SpringLayout.NORTH, columnField);
 		displayButton = new JButton("Display the indicated watch");
+		baseLayout.putConstraint(SpringLayout.SOUTH, displayButton, -5, SpringLayout.NORTH, changeButton);
 		
 		setupTable();
 		setupPanel();
 		setupLayout();
-		setupListener();
 	}
 	
 	/**
@@ -44,6 +51,8 @@ public class TwoDPanel
 		String [] columnHeaders = {"Column 0", "Column 1", "Column 2" };
 		DefaultTableModel tableModel = new DefaultTableModel(baseController.getMyWatches(), columnHeaders);
 		watchTable = new JTable(tableModel);
+		baseLayout.putConstraint(SpringLayout.EAST, displayButton, 0, SpringLayout.EAST, watchTable);
+		baseLayout.putConstraint(SpringLayout.EAST, changeButton, 0, SpringLayout.EAST, watchTable);
 	}
 	
 	private void setupPanel()
@@ -58,10 +67,9 @@ public class TwoDPanel
 		this.add(currentWatchLabel);
 		this.add(columnField);
 		this.add(rowField);
-		this.add(editField);
 		this.add(changeButton);
 		this.add(displayButton);
-		this.setBackground(Color.BLACK);
+		this.setBackground(Color.MAGENTA);
 	}
 	
 	private void setupListeners()
